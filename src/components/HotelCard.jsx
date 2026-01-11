@@ -21,7 +21,7 @@ function HotelCard({ hotel }) {
 
         <div className="hotel-card-footer">
           <span className="hotel-card-price">
-            R$ {hotel.pricePerNight} / noite
+            R$ {hotel.pricePerNight},00 / Diária
           </span>
 
           <Link to={`/hotel/${hotel.id}`} className="hotel-card-button">
