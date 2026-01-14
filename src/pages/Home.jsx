@@ -1,48 +1,4 @@
-// import { useState } from "react";
-// import hotelsMock from "../mock/hotelsMock";
-// import HotelCard from "../components/HotelCard";
-// import SearchBox from "../components/SearchBar";
 
-// function Home() {
-//   const [searchTerm, setSearchTerm] = useState("");
-
-//   // Filtra pelo nome ou cidade
-//   const filteredHotels = hotelsMock.filter(
-//     (hotel) =>
-//       hotel.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//       hotel.city.toLowerCase().includes(searchTerm.toLowerCase())
-//   );
-
-//   return (
-//     <div style={{ padding: "16px" }}>
-//       <h1>Lista de Hotéis</h1>
-
-//       <SearchBox
-//         value={searchTerm}
-//         onChange={(e) => setSearchTerm(e.target.value)}
-//       />
-
-//       <div
-//         style={{
-//           display: "grid",
-//           gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-//           gap: "16px",
-//           marginTop: "16px"
-//         }}
-//       >
-//         {filteredHotels.length > 0 ? (
-//           filteredHotels.map((hotel) => (
-//             <HotelCard key={hotel.id} hotel={hotel} />
-//           ))
-//         ) : (
-//           <p>Nenhum hotel encontrado.</p>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Home;
 
 
 import { useState, useEffect } from "react";
@@ -65,63 +21,93 @@ function Home() {
     fetchHotels();
   }, []);
 
-  // Filtra pelo nome ou cidade
   const filteredHotels = hotels.filter(
     (hotel) =>
       hotel.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       hotel.city.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Ordena por preço (front-end)
   const sortedHotels = [...filteredHotels].sort((a, b) => {
     if (!sortOrder) return 0;
-
     return sortOrder === "asc"
       ? a.pricePerNight - b.pricePerNight
       : b.pricePerNight - a.pricePerNight;
   });
 
-  if (loading) return <p>Carregando hotéis...</p>;
-
   return (
-    <div style={{ padding: "16px" }}>
-      <h1>Lista de Hotéis</h1>
-
-      <SearchBox
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-
-      <select
-        value={sortOrder}
-        onChange={(e) => setSortOrder(e.target.value)}
-        style={{ marginTop: "12px", padding: "6px" }}
-      >
-        <option value="">Ordenar por preço</option>
-        <option value="asc">Menor preço</option>
-        <option value="desc">Maior preço</option>
-      </select>
-
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundImage: `url('https://thumbs.dreamstime.com/b/luxury-modern-white-beach-hotel-swimming-infinity-pool-sundeck-sunbeds-palm-trees-ocean-sea-sunset-vacation-home-367413507.jpg')`, // ← imagem principal sugerida
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed", // faz o fundo ficar "parallax" (opcional, mas bonito)
+        padding: "16px",
+        position: "relative",
+      }}
+    >
+      {/* Overlay semi-transparente para melhorar legibilidade dos textos e cards */}
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "16px",
-          marginTop: "16px"
+          position: "absolute",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.45)", // escurece um pouco o fundo
+          zIndex: 1,
         }}
-      >
-        {sortedHotels.length > 0 ? (
-          sortedHotels.map((hotel) => (
-            <HotelCard key={hotel.id} hotel={hotel} />
-          ))
-        ) : (
-          <p>Nenhum hotel encontrado.</p>
-        )}
+      />
+
+      {/* Conteúdo principal com z-index maior */}
+      <div style={{ position: "relative", zIndex: 2, color: "#fff" }}>
+       <center> <h1 style={{ textShadow: "2px 2px 8px rgba(0,0,0,0.7)" }}>
+          Find place that gives
+you ultimate calm
+        </h1></center>
+
+        <SearchBox
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          style={{
+            marginTop: "12px",
+            padding: "6px",
+            backgroundColor: "rgba(255,255,255,0.9)",
+            borderRadius: "6px",
+          }}
+        >
+          <option value="">Ordenar por preço</option>
+          <option value="asc">Menor preço</option>
+          <option value="desc">Maior preço</option>
+        </select>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: "16px",
+            marginTop: "24px",
+          }}
+        >
+          {sortedHotels.length > 0 ? (
+            sortedHotels.map((hotel) => (
+              <HotelCard key={hotel.id} hotel={hotel} />
+            ))
+          ) : (
+            <p style={{ color: "#fff", gridColumn: "1 / -1", textAlign: "center" }}>
+              Nenhum hotel encontrado.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
 export default Home;
+
 
 

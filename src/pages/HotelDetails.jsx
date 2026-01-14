@@ -1,55 +1,3 @@
-// import { useParams } from "react-router-dom";
-// import { useState } from "react";
-// //import hotelsMock from "../mock/hotelsMock";
-// import { getHotels } from "../services/hotelService";
-// import RoomCard from "../components/RoomCard";
-// import ReservationModal from "../components/ReservationModal";
-
-// function HotelDetails() {
-//   const { id } = useParams();
-//   const hotel = hotelsMock.find(h => h.id === Number(id));
-
-//   const [selectedRoom, setSelectedRoom] = useState(null);
-//   const [isModalOpen, setIsModalOpen] = useState(false);
-
-//   if (!hotel) {
-//     return <h2>Hotel não encontrado</h2>;
-//   }
-
-//   const handleSelectRoom = (room) => {
-//     setSelectedRoom(room);
-//     setIsModalOpen(true);
-//   };
-
-//   return (
-//     <div style={{ padding: "16px" }}>
-//       <h1>{hotel.name}</h1>
-//       <p>{hotel.city}</p>
-
-//       <h2>Quartos disponíveis</h2>
-
-//       <div style={{ display: "grid", gap: "16px" }}>
-//         {hotel.rooms.map(room => (
-//           <RoomCard
-//             key={room.id}
-//             room={room}
-//             onSelect={() => handleSelectRoom(room)}
-//           />
-//         ))}
-//       </div>
-
-//       {isModalOpen && (
-//         <ReservationModal
-//           room={selectedRoom}
-//           onClose={() => setIsModalOpen(false)}
-//         />
-//       )}
-//     </div>
-//   );
-// }
-
-// export default HotelDetails;
-
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -121,3 +69,4 @@ function HotelDetails() {
 }
 
 export default HotelDetails;
+

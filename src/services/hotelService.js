@@ -10,3 +10,5 @@ export async function getHotels() {
     return []; // retorna array vazio em caso de erro
   }
 }
+
+
