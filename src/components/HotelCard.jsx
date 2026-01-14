@@ -16,7 +16,7 @@ function HotelCard({ hotel }) {
         <p className="hotel-card-city">{hotel.city}</p>
 
         <p className="hotel-card-description">
-          {hotel.description}
+          {hotel.descriptionhome}
         </p>
 
         <div className="hotel-card-footer">
@@ -24,8 +24,11 @@ function HotelCard({ hotel }) {
             R$ {hotel.pricePerNight},00 / Diária
           </span>
 
-          <Link to={`/hotel/${hotel.id}`} className="hotel-card-button">
-            Ver detalhes
+          {/* <Link to={`/hotel/${hotel.id}`} className="hotel-card-button">
+             Conhecer o hotel
+          </Link> */}
+           <Link to={`/hotel/${hotel.id}`} className="hotel-card-button">
+             Conhecer o hotel
           </Link>
         </div>
       </div>
