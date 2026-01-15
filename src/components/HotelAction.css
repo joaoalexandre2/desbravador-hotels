@@ -1,0 +1,22 @@
+.hotel-action {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 12px;
+  position: sticky;
+  top: 24px;
+  height: fit-content;
+}
+
+.price {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .hotel-action {
+    position: relative;
+    top: 0;
+    margin-top: 32px;
+  }
+}

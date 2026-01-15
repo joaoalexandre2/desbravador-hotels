@@ -1,0 +1,26 @@
+.hotel-gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.main-image {
+  height: 360px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.side-images {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.side-images img {
+  height: 176px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}

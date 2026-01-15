@@ -1,0 +1,19 @@
+.hotel-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.hotel-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+  .hotel-content {
+    grid-template-columns: 1fr;
+  }
+}

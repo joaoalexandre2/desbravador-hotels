@@ -1,0 +1,14 @@
+.hotel-header {
+  max-width: 1200px;
+  margin: 0 auto 24px auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.hotel-city {
+  color: #666;
+  font-size: 14px;
+  margin-top: 4px;
+}

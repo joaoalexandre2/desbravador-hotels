@@ -1,0 +1,14 @@
+.hotel-description {
+  max-width: 720px;
+  margin-bottom: 40px;
+}
+
+.hotel-description h2 {
+  margin-bottom: 12px;
+}
+
+.hotel-description p {
+  color: #444;
+  line-height: 1.7;
+  margin: 0;
+}
