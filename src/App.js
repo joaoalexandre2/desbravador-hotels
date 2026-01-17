@@ -1,10 +1,25 @@
+// import AppRouter from "./router";
+// import './App.css';
+
+// function App() {
+//   return (
+//     <AppRouter/>
+//   );
+// }
+
+// export default App;
+
 import AppRouter from "./router";
-import './App.css';
+import { ReservationProvider } from "./context/ReservationContext";
+import "./App.css";
 
 function App() {
   return (
-    <AppRouter/>
+    <ReservationProvider>
+      <AppRouter />
+    </ReservationProvider>
   );
 }
 
 export default App;
+

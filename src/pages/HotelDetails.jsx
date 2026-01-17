@@ -1,21 +1,24 @@
-
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getHotels } from "../services/hotelService";
 import RoomCard from "../components/RoomCard";
-import ReservationModal from "../components/ReservationModal";
+import { useReservation } from "../context/ReservationContext";
 
 function HotelDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const { reservation, setReservation } = useReservation();
+
   const [hotel, setHotel] = useState(null);
-  const [selectedRoom, setSelectedRoom] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchHotel() {
       const hotels = await getHotels();
-      const foundHotel = hotels.find(h => h.id === id || h.id === Number(id));
+      const foundHotel = hotels.find(
+        h => h.id === id || h.id === Number(id)
+      );
       setHotel(foundHotel);
       setLoading(false);
     }
@@ -23,8 +26,15 @@ function HotelDetails() {
   }, [id]);
 
   const handleSelectRoom = (room) => {
-    setSelectedRoom(room);
-    setIsModalOpen(true);
+    // 🔥 SALVA NO CONTEXT (obrigatório)
+    setReservation({
+      ...reservation,
+      room,
+      hotel
+    });
+
+    // 🔥 NAVEGA PARA A ROTA CORRETA
+    navigate("/reserva/dados");
   };
 
   if (loading) return <p>Carregando hotel...</p>;
@@ -37,33 +47,25 @@ function HotelDetails() {
 
       <h2>Quartos disponíveis</h2>
 
-      {/* ESTA É A PARTE QUE VOCÊ PRECISA MUDAR */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", // mantém responsivo
-          gap: "12px",                      // ← espaçamento bem menor (era 24px, agora 12px)
-          justifyContent: "center",         // ← centraliza os cards na tela
-          padding: "20px 0",                // espaço em cima/embaixo
-          maxWidth: "1200px",               // evita que fique muito largo em telas grandes
-          margin: "0 auto"                  // centraliza o bloco inteiro
+          gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+          gap: "12px",
+          justifyContent: "center",
+          padding: "20px 0",
+          maxWidth: "1200px",
+          margin: "0 auto"
         }}
       >
         {hotel.rooms.map(room => (
           <RoomCard
-            key={room.roomNumber}           // melhor usar roomNumber como key
+            key={room.roomNumber}
             room={room}
-            onSelect={handleSelectRoom}
+            onSelect={() => handleSelectRoom(room)}
           />
         ))}
       </div>
-
-      {isModalOpen && (
-        <ReservationModal
-          room={selectedRoom}
-          onClose={() => setIsModalOpen(false)}
-        />
-      )}
     </div>
   );
 }
