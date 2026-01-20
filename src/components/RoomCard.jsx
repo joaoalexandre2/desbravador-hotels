@@ -1,12 +1,11 @@
 
 
-
 import "./RoomCard.css";
 
 function RoomCard({ room, onSelect }) {
   const { roomNumber, type, beds, price, availability, image } = room;
 
-  // Amenities fixas para todos os quartos (conforme você pediu)
+  // Amenities fixas para todos os quartos
   const amenities = [
     "Café da manhã incluso",
     "Estacionamento grátis sem manobrista",
@@ -58,7 +57,10 @@ function RoomCard({ room, onSelect }) {
         </div>
 
         {availability ? (
-          <button className="reserve-btn" onClick={onSelect}>
+          <button
+            className="reserve-btn"
+            onClick={() => onSelect(room)} // 🔥 envia o quarto completo para o pai
+          >
             Reservar
           </button>
         ) : (

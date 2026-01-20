@@ -26,6 +26,7 @@ function SummaryPage() {
 
       <p><strong>Hóspede:</strong> {reservation.guest.name}</p>
       <p><strong>Email:</strong> {reservation.guest.email}</p>
+      <p><strong>Telefone:</strong> {reservation.guest.phone}</p>
 
       <p><strong>Quarto:</strong> {reservation.room.name}</p>
       <p><strong>Diárias:</strong> {calculateNights()}</p>
