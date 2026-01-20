@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { getHotels } from "../services/hotelService";
 import HotelCard from "../components/HotelCard";
-import SearchBox from "../components/SearchBar";
+import SearchBar from "../components/SearchBar";
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -64,7 +64,7 @@ function Home() {
 you ultimate calm
         </h1></center>
 
-        <SearchBox
+        <SearchBar
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
