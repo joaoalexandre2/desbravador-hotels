@@ -1,0 +1,120 @@
+/* Container principal */
+.reservation-container {
+  background: #e6e9ef;
+  border-radius: 24px;
+  padding: 32px;
+  width: 520px;
+  box-shadow: 10px 10px 20px #c5c8ce,
+              -10px -10px 20px #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Stepper */
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.step {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.step .circle {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 6px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #e6e9ef;
+  box-shadow: inset 5px 5px 10px #c5c8ce,
+              inset -5px -5px 10px #ffffff;
+  transition: all 0.3s;
+}
+
+.step.active .circle {
+  font-weight: bold;
+  color: #4f6ef7;
+  box-shadow: 5px 5px 15px #c5c8ce,
+              -5px -5px 15px #ffffff;
+}
+
+/* Card de etapas */
+.step-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Linhas de inputs */
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+/* Inputs */
+input {
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  background: #e6e9ef;
+  box-shadow: inset 5px 5px 10px #c5c8ce,
+              inset -5px -5px 10px #ffffff;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: inset 3px 3px 8px #c5c8ce,
+              inset -3px -3px 8px #ffffff,
+              0 0 0 3px rgba(79, 110, 247, 0.2);
+}
+
+/* Botões */
+button.primary {
+  padding: 14px;
+  border-radius: 16px;
+  border: none;
+  background: #4f6ef7;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 5px 5px 15px #3c57c3,
+              -5px -5px 15px #6a84f9;
+}
+
+button.primary:hover {
+  background: #3c57c3;
+  box-shadow: 5px 5px 20px #2d3f91,
+              -5px -5px 20px #5a78e0;
+}
+
+/* Ações */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Card de preview */
+.card-preview {
+  padding: 20px;
+  border-radius: 18px;
+  background: #e6e9ef;
+  box-shadow: inset 5px 5px 10px #c5c8ce,
+              inset -5px -5px 10px #ffffff;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.card-preview:hover {
+  box-shadow: 5px 5px 15px #c5c8ce,
+              -5px -5px 15px #ffffff;
+}
+

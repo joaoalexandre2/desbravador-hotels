@@ -1,0 +1,123 @@
+/* .guest-page {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.1rem;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 16px;
+  background: #f9f9f9;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff5a5f;
+  box-shadow: 0 0 0 3px rgba(255, 90, 95, 0.15);
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  margin-top: 1.5rem;
+  background: linear-gradient(90deg, #ff5a5f, #ff385c);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: 0.92;
+} */
+
+
+.guest-page {
+  max-width: 420px;
+  width: 100%;                  /* ← importante para telas < 420px */
+  margin: 0 auto;
+  padding: clamp(1rem, 5vw, 2rem); /* fluido */
+}
+
+.form-group {
+  margin-bottom: clamp(1rem, 4vw, 1.5rem);
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: clamp(12px, 4vw, 16px) clamp(14px, 4vw, 18px);
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: clamp(15px, 4vw, 17px);
+  background: #f9f9f9;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff5a5f;
+  box-shadow: 0 0 0 3px rgba(255, 90, 95, 0.15);
+}
+
+/* Botão */
+.btn-primary {
+  width: 100%;
+  padding: clamp(14px, 5vw, 18px);
+  margin-top: clamp(1.2rem, 5vw, 2rem);
+  background: linear-gradient(90deg, #ff5a5f, #ff385c);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: clamp(16px, 4.5vw, 18px);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);     /* leve lift em desktop */
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+  opacity: 0.88;
+}
+
+/* ── Media Queries (essencial para desktop/tablet) ── */
+@media (min-width: 768px) {     /* tablets e desktop pequeno */
+  .guest-page {
+    max-width: 540px;
+    padding: 2.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.75rem;
+  }
+
+  input {
+    font-size: 17px;
+    padding: 16px 20px;
+  }
+}
+
+@media (min-width: 1024px) {    /* desktop */
+  .guest-page {
+    max-width: 640px;
+    padding: 3rem 4rem;
+  }
+
+  /* Opcional: transformar em 2 colunas se quiser */
+  /* form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; } */
+}
