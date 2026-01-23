@@ -99,6 +99,55 @@
 //   return useContext(ReservationContext);
 // }
 
+// import { createContext, useContext, useState } from "react";
+
+// const ReservationContext = createContext();
+
+// export function ReservationProvider({ children }) {
+//   const [reservation, setReservation] = useState({
+//     room: null,
+//     guest: {},
+//     payment: {},
+//     dates: {
+//       checkIn: null,
+//       checkOut: null
+//     }
+//   });
+
+//   function calculateNights() {
+//     const { checkIn, checkOut } = reservation.dates;
+//     if (!checkIn || !checkOut) return 0;
+
+//     const start = new Date(checkIn);
+//     const end = new Date(checkOut);
+//     const diff = (end - start) / (1000 * 60 * 60 * 24);
+//     return diff;
+//   }
+
+//   function calculateTotal() {
+//     if (!reservation.room) return 0;
+//     return calculateNights() * reservation.room.price;
+//   }
+
+//   return (
+//     <ReservationContext.Provider
+//       value={{
+//         reservation,
+//         setReservation,
+//         calculateNights,
+//         calculateTotal
+//       }}
+//     >
+//       {children}
+//     </ReservationContext.Provider>
+//   );
+// }
+
+// export function useReservation() {
+//   return useContext(ReservationContext);
+// }
+
+
 import { createContext, useContext, useState } from "react";
 
 const ReservationContext = createContext();
@@ -116,12 +165,16 @@ export function ReservationProvider({ children }) {
 
   function calculateNights() {
     const { checkIn, checkOut } = reservation.dates;
+
     if (!checkIn || !checkOut) return 0;
 
     const start = new Date(checkIn);
     const end = new Date(checkOut);
-    const diff = (end - start) / (1000 * 60 * 60 * 24);
-    return diff;
+
+    const diffTime = end.getTime() - start.getTime();
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+    return diffDays > 0 ? Math.floor(diffDays) : 0;
   }
 
   function calculateTotal() {

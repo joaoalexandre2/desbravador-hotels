@@ -1,4 +1,4 @@
-.search-bar {
+/* .search-bar {
   margin-bottom: 20px;
 }
 
@@ -12,4 +12,175 @@
   background: #f1f3f6;
   box-shadow: inset 4px 4px 8px #d1d9e6,
               inset -4px -4px 8px #ffffff;
+} */
+
+
+/* =========================
+   CONTAINER PRINCIPAL
+========================= */
+
+.searchbar {
+  display: flex;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  gap: 10px;
+  align-items: center;
+  max-width: 1000px;
+  margin: 24px auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
+
+/* =========================
+   ITEMS
+========================= */
+
+.search-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+  background: #fff;
+}
+
+.search-item input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 0.95rem;
+  background: transparent;
+}
+
+/* =========================
+   DATAS
+========================= */
+
+.date-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.date-group input {
+  flex: 1;
+}
+
+/* =========================
+   HÓSPEDES
+========================= */
+
+.guests-dropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: white;
+  width: 260px;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.guest-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.guest-row:last-child {
+  margin-bottom: 0;
+}
+
+.guest-row button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #0071c2;
+  background: transparent;
+  color: #0071c2;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.guest-row span {
+  margin: 0 8px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* =========================
+   BOTÃO
+========================= */
+
+.search-btn {
+  background: #0071c2;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+
+.search-btn:hover {
+  background: #005fa3;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 1024px) {
+  .searchbar {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .searchbar {
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  .search-item {
+    width: 100%;
+  }
+
+  .date-group {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .search-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 1rem;
+  }
+
+  .guests-dropdown {
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-item {
+    padding: 12px;
+  }
+
+  .search-btn {
+    font-size: 1.1rem;
+  }
+}
+
+
