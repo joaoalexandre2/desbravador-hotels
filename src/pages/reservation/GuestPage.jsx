@@ -1,20 +1,26 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useReservation } from "../../context/ReservationContext";
 import Stepper from "../../components/Stepper";
 import DatePicker from "react-datepicker";
+
+import ptBR from "date-fns/locale/pt-BR";
+
 import "react-datepicker/dist/react-datepicker.css";
 import "./GuestPage.css";
-import { registerLocale } from "react-datepicker";
-import ptBR from "date-fns/locale/pt-BR/index.js";
-
-
-registerLocale("pt-BR", ptBR);
 
 const today = new Date();
-const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate()); // pelo menos 18 anos
-const minDate = new Date(today.getFullYear() - 120, today.getMonth(), today.getDate()); // até 120 anos atrás
+const maxDate = new Date(
+  today.getFullYear() - 18,
+  today.getMonth(),
+  today.getDate()
+); // mínimo 18 anos
+
+const minDate = new Date(
+  today.getFullYear() - 120,
+  today.getMonth(),
+  today.getDate()
+); // máximo 120 anos
 
 export default function GuestPage() {
   const navigate = useNavigate();
@@ -41,44 +47,61 @@ export default function GuestPage() {
   const validarCPF = (cpf) => {
     cpf = cpf.replace(/\D/g, "");
     if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
-    let sum = 0,
-      remainder;
-    for (let i = 1; i <= 9; i++) sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-    remainder = (sum * 10) % 11;
+
+    let sum = 0;
+    for (let i = 1; i <= 9; i++) {
+      sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+    }
+    let remainder = (sum * 10) % 11;
     if (remainder === 10) remainder = 0;
     if (remainder !== parseInt(cpf.substring(9, 10))) return false;
+
     sum = 0;
-    for (let i = 1; i <= 10; i++) sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+    for (let i = 1; i <= 10; i++) {
+      sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+    }
     remainder = (sum * 10) % 11;
     if (remainder === 10) remainder = 0;
+
     return remainder === parseInt(cpf.substring(10, 11));
   };
 
   const handleChange = (e) => {
     let { name, value } = e.target;
 
-    // Máscara CPF
+    // CPF
     if (name === "cpf") {
       value = value.replace(/\D/g, "").slice(0, 11);
       if (value.length > 9)
-        value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/, "$1.$2.$3-$4");
-      else if (value.length > 6) value = value.replace(/(\d{3})(\d{3})(\d{0,3})/, "$1.$2.$3");
-      else if (value.length > 3) value = value.replace(/(\d{3})(\d{0,3})/, "$1.$2");
+        value = value.replace(
+          /(\d{3})(\d{3})(\d{3})(\d{0,2})/,
+          "$1.$2.$3-$4"
+        );
+      else if (value.length > 6)
+        value = value.replace(/(\d{3})(\d{3})(\d{0,3})/, "$1.$2.$3");
+      else if (value.length > 3)
+        value = value.replace(/(\d{3})(\d{0,3})/, "$1.$2");
     }
 
-    // Máscara telefone
+    // Telefone
     if (name === "phone") {
       value = value.replace(/\D/g, "").slice(0, 11);
-      if (value.length > 2 && value.startsWith("0")) value = value.slice(1);
-
-      if (value.length > 10) value = value.replace(/(\d{2})(\d{1})(\d{4})(\d{0,4})/, "($1) $2$3-$4");
-      else if (value.length > 6) value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
-      else if (value.length > 2) value = value.replace(/(\d{2})(\d{0,4})/, "($1) $2");
+      if (value.length > 10)
+        value = value.replace(
+          /(\d{2})(\d{1})(\d{4})(\d{0,4})/,
+          "($1) $2$3-$4"
+        );
+      else if (value.length > 6)
+        value = value.replace(
+          /(\d{2})(\d{4})(\d{0,4})/,
+          "($1) $2-$3"
+        );
+      else if (value.length > 2)
+        value = value.replace(/(\d{2})(\d{0,4})/, "($1) $2");
     }
 
     setForm({ ...form, [name]: value });
 
-    // Validação instantânea
     let isValid = false;
     switch (name) {
       case "name":
@@ -103,21 +126,25 @@ export default function GuestPage() {
 
   const handleDateChange = (date) => {
     setForm({ ...form, birthDate: date });
-    setValid({ ...valid, birthDate: date !== null });
+    setValid({ ...valid, birthDate: !!date });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!Object.values(valid).every((v) => v)) {
-      return alert("Preencha todos os campos corretamente!");
+    if (!Object.values(valid).every(Boolean)) {
+      alert("Preencha todos os campos corretamente!");
+      return;
     }
 
-    setReservation({ ...reservation, guest: { ...form } });
+    setReservation({
+      ...reservation,
+      guest: { ...form },
+    });
+
     navigate("/reserva/pagamento");
   };
 
-  // Função para mostrar ícone de validação
   const renderIcon = (field) => {
     if (valid[field] === null) return null;
     return valid[field] ? (
@@ -127,15 +154,14 @@ export default function GuestPage() {
     );
   };
 
-  // Função para mensagem de erro
-  const renderError = (field, message) => valid[field] === false && <span className="error">{message}</span>;
+  const renderError = (field, message) =>
+    valid[field] === false && <span className="error">{message}</span>;
 
   return (
     <div className="guest-page">
       <Stepper active={1} />
-      <center>
-        <h2>Dados do Hóspede</h2>
-      </center>
+
+      <h2 style={{ textAlign: "center" }}>Dados do Hóspede</h2>
 
       <form onSubmit={handleSubmit}>
         {/* Nome */}
@@ -146,7 +172,7 @@ export default function GuestPage() {
               placeholder="Nome completo"
               value={form.name}
               onChange={handleChange}
-              className={valid.name === null ? "" : valid.name ? "valid" : "invalid"}
+              className={valid.name == null ? "" : valid.name ? "valid" : "invalid"}
               required
             />
             {renderIcon("name")}
@@ -163,7 +189,7 @@ export default function GuestPage() {
               value={form.cpf}
               onChange={handleChange}
               maxLength={14}
-              className={valid.cpf === null ? "" : valid.cpf ? "valid" : "invalid"}
+              className={valid.cpf == null ? "" : valid.cpf ? "valid" : "invalid"}
               required
             />
             {renderIcon("cpf")}
@@ -180,7 +206,7 @@ export default function GuestPage() {
               placeholder="seu@email.com"
               value={form.email}
               onChange={handleChange}
-              className={valid.email === null ? "" : valid.email ? "valid" : "invalid"}
+              className={valid.email == null ? "" : valid.email ? "valid" : "invalid"}
               required
             />
             {renderIcon("email")}
@@ -193,12 +219,11 @@ export default function GuestPage() {
           <div className="input-wrapper">
             <input
               name="phone"
-              type="tel"
-              placeholder="(DD) xxxx-xxxx ou 9xxxx-xxxx"
+              placeholder="(DD) xxxxx-xxxx"
               value={form.phone}
               onChange={handleChange}
               maxLength={15}
-              className={valid.phone === null ? "" : valid.phone ? "valid" : "invalid"}
+              className={valid.phone == null ? "" : valid.phone ? "valid" : "invalid"}
               required
             />
             {renderIcon("phone")}
@@ -206,20 +231,27 @@ export default function GuestPage() {
           {renderError("phone", "Telefone inválido")}
         </div>
 
-        {/* Data de nascimento */}
+        {/* Data nascimento */}
         <div className="form-group">
           <div className="input-wrapper">
             <DatePicker
               selected={form.birthDate}
               onChange={handleDateChange}
               dateFormat="dd/MM/yyyy"
-              placeholderText="DD/MM/AAAA"
+              locale={ptBR}
+              minDate={minDate}
+              maxDate={maxDate}
               showMonthDropdown
               showYearDropdown
               dropdownMode="select"
-              minDate={minDate}    // idade máxima 120 anos
-              maxDate={maxDate}    // mínimo 18 anos
-              className={valid.birthDate === null ? "" : valid.birthDate ? "valid" : "invalid"}
+              placeholderText="DD/MM/AAAA"
+              className={
+                valid.birthDate == null
+                  ? ""
+                  : valid.birthDate
+                  ? "valid"
+                  : "invalid"
+              }
               required
             />
             {renderIcon("birthDate")}
@@ -232,11 +264,12 @@ export default function GuestPage() {
           <div className="input-wrapper">
             <input
               name="address"
-              type="text"
               placeholder="Endereço"
               value={form.address}
               onChange={handleChange}
-              className={valid.address === null ? "" : valid.address ? "valid" : "invalid"}
+              className={
+                valid.address == null ? "" : valid.address ? "valid" : "invalid"
+              }
               required
             />
             {renderIcon("address")}

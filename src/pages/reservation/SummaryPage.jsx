@@ -5,6 +5,9 @@ import Stepper from "../../components/Stepper";
 import { useNavigate } from "react-router-dom";
 import "./GuestPage.css";
 
+
+
+
 function SummaryPage() {
   const {
     reservation,
