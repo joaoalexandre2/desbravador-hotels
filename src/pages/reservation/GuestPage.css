@@ -66,8 +66,6 @@ input {
 
 input:focus {
   outline: none;
-  border-color: #ff5a5f;
-  box-shadow: 0 0 0 3px rgba(255, 90, 95, 0.15);
 }
 
 /* Botão */
@@ -94,6 +92,28 @@ input:focus {
   transform: scale(0.98);
   opacity: 0.88;
 }
+
+.guest-row span{
+  color: black;
+}
+
+.searchbar{
+  /*padding: 0px;*/
+  /*background: none;*/
+  padding:0px;
+  border: 5px solid #ffb700;
+}
+
+.search-item{
+  color: black;
+  font-size: 16px;
+  border: none;
+  padding:0px;
+}
+
+
+
+
 
 /* ── Media Queries (essencial para desktop/tablet) ── */
 @media (min-width: 768px) {     /* tablets e desktop pequeno */

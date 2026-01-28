@@ -68,8 +68,8 @@ function SearchBar({ onSearch }) {
 
   return (
     <div className="searchbar">
-      <div className="search-item">
-        <FaMapMarkerAlt />
+      <div className="search-item search-item1">
+        <FaMapMarkerAlt style={{ marginLeft: "20px" }} />
         <input
           placeholder="Para onde você vai?"
           value={city}
@@ -77,7 +77,7 @@ function SearchBar({ onSearch }) {
         />
       </div>
 
-      <div className="search-item">
+      <div className="search-item search-item2">
         <FaCalendarAlt />
         <div className="date-group">
           <input
@@ -95,11 +95,10 @@ function SearchBar({ onSearch }) {
         </div>
       </div>
 
-      <div className="search-item" onClick={() => setOpenGuests(!openGuests)}>
+      <div className="search-item  search-item3" onClick={() => setOpenGuests(!openGuests)}>
         <FaUserFriends />
         <span>
-          {guests.adults} adultos · {guests.children} crianças · {guests.rooms}{" "}
-          quarto
+          {guests.adults} adultos · {guests.children} crianças · {guests.rooms}{" "} quarto
         </span>
 
         {openGuests && (
